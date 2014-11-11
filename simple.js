@@ -41,10 +41,12 @@ Machine.prototype.step = function () {
     this.expression = this.expression.reduce();
 };
 Machine.prototype.run = function () {
+    console.group(" --Run-- ");
     while (this.expression.reducible === true) {
-        console.log(this.expression, this.expression.toString());
+        console.log(this.expression.toString(), this.expression);
         this.step();
     }
-    console.log(this.expression, this.expression.toString());
+    console.log(this.expression.toString(), this.expression);
+    console.groupEnd();
 };
 
