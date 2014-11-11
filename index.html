@@ -25,6 +25,15 @@
             new Add(new Number(2), new Number(3)));
     new Machine(thirdExample).run();
 
+    var fourthExample = new Bool(true);
+    new Machine(fourthExample).run();
+
+    var biggerExample = new Bigger(new Variable("fred"), new Number(5));
+    new Machine(biggerExample,{fred:new Number(54)}).run();
+
+    var variable = new Variable("bob");
+    new Machine(variable, {bob: new Number(5)}).run();
+
 </script>
 
 </body>
