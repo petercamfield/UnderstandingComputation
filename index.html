@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<script src="simple.js"></script>
+
+
+<script>
+    var firstExample = new Add(
+            new Add(new Number(10), new Number(1)),
+            new Number(2));
+    new Machine(firstExample).run();
+
+    var secondExample = new Add(
+            new Number(1),
+            new Add(new Number(2), new Number(3)));
+    new Machine(secondExample).run();
+
+</script>
+
+</body>
+</html>

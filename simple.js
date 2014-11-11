@@ -12,7 +12,7 @@ function Add(left, right) {
     this.reducible = true;
 }
 Add.prototype.toString = function() {
-    return (this.left + " + " + this.right);
+    return ("(" + this.left + " + " + this.right + ")");
 };
 Add.prototype.reduce = function() {
     if (this.left.reducible) return new Add(this.left.reduce(), this.right);
@@ -34,6 +34,3 @@ Machine.prototype.run = function() {
     console.log(this.expression, this.expression.toString());
 };
 
-var expression = new Add(new Number(1), new Add(new Number(2), new Number(3)));
-var machine = new Machine(expression);
-machine.run();
