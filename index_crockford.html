@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Crockford Example</title>
+</head>
+<body>
+
+<script src="simple_crockford.js"></script>
+
+
+<script>
+    var firstExample = AddContainer(
+            AddContainer(NumberContainer(10), NumberContainer(1)),
+            NumberContainer(2));
+    MachineContainer(firstExample).run();
+
+    var secondExample = AddContainer(
+            NumberContainer(1),
+            AddContainer(NumberContainer(2), NumberContainer(3)));
+    MachineContainer(secondExample).run();
+
+    var thirdExample = MultiplyContainer(
+            AddContainer(NumberContainer(1), NumberContainer(2)),
+            AddContainer(NumberContainer(2), NumberContainer(3)));
+    MachineContainer(thirdExample).run();
+
+    var fourthExample = BooleanContainer(true);
+    MachineContainer(fourthExample).run();
+
+    var fifthExample = BiggerContainer(
+        NumberContainer(12), 
+        AddContainer(NumberContainer(2), NumberContainer(5)));
+    MachineContainer(fifthExample).run();
+
+    var biggerExample = BiggerContainer(VariableContainer("fred"), NumberContainer(5));
+    MachineContainer(biggerExample,{fred:NumberContainer(54)}).run();
+
+    var variable = VariableContainer("bob");
+    MachineContainer(variable, {bob: NumberContainer(5)}).run();
+
+</script>
+
+</body>
+</html>

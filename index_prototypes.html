@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<script src="simple_prototypes.js"></script>
+
+
+<script>
+    var firstExample = new Add(
+            new Add(new Number(10), new Number(1)),
+            new Number(2));
+    new Machine(firstExample).run();
+
+    var secondExample = new Add(
+            new Number(1),
+            new Add(new Number(2), new Number(3)));
+    new Machine(secondExample).run();
+
+    var thirdExample = new Multiply(
+            new Add(new Number(1), new Number(2)),
+            new Add(new Number(2), new Number(3)));
+    new Machine(thirdExample).run();
+
+    var fourthExample = new Boolean(true);
+    new Machine(fourthExample).run();
+
+    var biggerExample = new Bigger(new Variable("fred"), new Number(5));
+    new Machine(biggerExample,{fred:new Number(54)}).run();
+
+    var variable = new Variable("bob");
+    new Machine(variable, {bob: new Number(5)}).run();
+
+</script>
+
+</body>
+</html>
