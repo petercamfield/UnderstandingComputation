@@ -186,6 +186,42 @@ var VariableContainer = function(name) {
 }
 
 
+var DoNothing = function() {
+    var instance={};
+
+    instance.isReducible = function() {
+        return false;
+    };
+
+    instance.toString= function(){
+        return "DoNothing";
+    };
+
+    return instance;
+};
+
+var Assign = function(name, expression){
+    var instance={};
+
+    instance.toString = function() {
+        return "[" + name.toString() + " = " + expression.toString() + "]";
+    };
+
+    instance.isReducible = function() {
+        return true;
+    };
+
+    instance.reduce = function(environment){
+        if (expression.isReducible()) return Assign(name, expression.reduce(environment));
+        var newEnvironment = environment;
+        newEnvironment[name] = expression;
+        return [DoNothing(), newEnvironment];
+    };
+
+    return instance;
+
+};
+
 var MachineContainer = function(expression, environment) {
 	var instance = {};
 	var privateField_ExpressionValue;
@@ -195,9 +231,9 @@ var MachineContainer = function(expression, environment) {
 		privateField_ExpressionValue = expression;
 	}
 
-	if (typeof environment != 'undefined') {
-		privateField_EnvironmentValue = environment;
-	}
+
+		privateField_EnvironmentValue = environment ||{};
+
 
 	instance.getExpressionValue = function() {
 		return privateField_ExpressionValue;
@@ -207,19 +243,25 @@ var MachineContainer = function(expression, environment) {
 		return privateField_EnvironmentValue;
 	}
 
-	doStep = function() {
-		privateField_ExpressionValue = privateField_ExpressionValue.reduce(privateField_EnvironmentValue);
-	}
+	var doStep = function() {
+        var result = [].concat(privateField_ExpressionValue.reduce(privateField_EnvironmentValue));
+		privateField_ExpressionValue = result[0];
+        privateField_EnvironmentValue = result[1] || privateField_EnvironmentValue;
+	};
 
 	instance.run = function() {
 	    console.group(" --Run-- ");
 	    while (privateField_ExpressionValue.isReducible() === true) {
-	        console.log(privateField_ExpressionValue.toString(), privateField_ExpressionValue);
+            console.log(privateField_ExpressionValue.toString(), privateField_ExpressionValue);
+            console.log(privateField_EnvironmentValue.toString(), privateField_EnvironmentValue);
+
 	        doStep();
 	    }
 	    console.log(privateField_ExpressionValue.toString(), privateField_ExpressionValue);
+        console.log(privateField_EnvironmentValue.toString(), privateField_EnvironmentValue);
 	    console.groupEnd();
-	}
+        return privateField_EnvironmentValue;
+	};
 
 	return instance;
 }

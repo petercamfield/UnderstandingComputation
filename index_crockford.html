@@ -39,6 +39,11 @@
     var variable = VariableContainer("bob");
     MachineContainer(variable, {bob: NumberContainer(5)}).run();
 
+    var assignExample = Assign("bob", MultiplyContainer(
+            AddContainer(NumberContainer(1), NumberContainer(2)),
+            AddContainer(NumberContainer(2), NumberContainer(3))));
+    var env = MachineContainer(assignExample, {bob: NumberContainer(0)}).run();
+
 </script>
 
 </body>
